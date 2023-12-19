@@ -1,6 +1,7 @@
 package trees 
 
 
+
 type Element interface {
 	Key() int 
 }
