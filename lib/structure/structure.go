@@ -1,11 +1,11 @@
-package lib
+package structure
 
 
 type Sizer interface {
 	Size() int 
 }
 
-type Capacitier interface {
+type Capaciter interface {
 	Capacity() int
 }
 
