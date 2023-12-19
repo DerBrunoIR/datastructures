@@ -1,8 +1,12 @@
-package buffers
+package lib
 
 
 type Sizer interface {
 	Size() int 
+}
+
+type Capacitier interface {
+	Capacity() int
 }
 
 type Stack[T any] interface {

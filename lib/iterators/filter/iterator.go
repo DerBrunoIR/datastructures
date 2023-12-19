@@ -1,4 +1,4 @@
-package iterator
+package lib
 
 
 type FilterFunc[T any] func(T) bool
