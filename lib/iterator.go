@@ -1,4 +1,4 @@
-package iterator
+package lib
 
 
 type Sizer interface {

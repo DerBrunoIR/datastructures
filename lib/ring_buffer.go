@@ -1,12 +1,12 @@
-package ring
+package lib
 
 import "slices"
 
-func Make[T any](capacity int) *Buffer[T] {
+func MakeRingBuffer[T any](capacity int) *RingBuffer[T] {
 	if capacity < 1 {
 		panic("ring buffer capacity musst be greater zero")
 	}
-	return &Buffer[T]{
+	return &RingBuffer[T]{
 		buffer: make([]T, capacity+1),
 	}
 }
@@ -14,20 +14,20 @@ func Make[T any](capacity int) *Buffer[T] {
 /*
 This type implements a circulare buffer
 */
-type Buffer[T any] struct {
+type RingBuffer[T any] struct {
 	buffer     []T
 	start, end int
 }
 
-func (r *Buffer[T]) Size() int {
+func (r *RingBuffer[T]) Size() int {
 	return (r.end - r.start) % len(r.buffer)
 }
 
-func (r *Buffer[T]) Capacity() int {
+func (r *RingBuffer[T]) Capacity() int {
 	return (r.start - r.end - 1) % len(r.buffer)
 }
 
-func (r *Buffer[T]) Enqueue(t T) {
+func (r *RingBuffer[T]) Enqueue(t T) {
 	if r.end+1 == r.start {
 		panic("no more space")
 	}
@@ -36,7 +36,7 @@ func (r *Buffer[T]) Enqueue(t T) {
 	r.end %= len(r.buffer)
 }
 
-func (r *Buffer[T]) Dequeue() (res T) {
+func (r *RingBuffer[T]) Dequeue() (res T) {
 	if r.start == r.end {
 		panic("no more elements")
 	}
@@ -46,8 +46,8 @@ func (r *Buffer[T]) Dequeue() (res T) {
 	return
 }
 
-func (r *Buffer[T]) Clone() *Buffer[T] {
-	return &Buffer[T]{
+func (r *RingBuffer[T]) Clone() *RingBuffer[T] {
+	return &RingBuffer[T]{
 		buffer: slices.Clone(r.buffer),
 		start: r.start,
 		end: r.end,
