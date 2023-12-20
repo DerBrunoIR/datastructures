@@ -3,7 +3,7 @@ package lib
 import "slices"
 
 
-func Make[T Id](capacity int) *HashSet[T] {
+func MakeHashSet[T Id](capacity int) *HashSet[T] {
 	return &HashSet[T]{
 		elements: make([][]T, capacity),
 		count: 0,

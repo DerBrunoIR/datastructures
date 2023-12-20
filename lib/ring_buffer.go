@@ -2,6 +2,13 @@ package lib
 
 import "slices"
 
+type Buffer[T any] interface {
+	Queue[T]
+	Sizer
+	Capaciter
+	Cloner[Buffer[T]]
+}
+
 func MakeRingBuffer[T any](capacity int) *RingBuffer[T] {
 	if capacity < 1 {
 		panic("ring buffer capacity musst be greater zero")

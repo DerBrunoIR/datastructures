@@ -1,24 +1,23 @@
 package lib
 
 
-
 func MakeBufferedIterator[T any](i Iterator[T], capacity int) *BufferedIterator[T] {
 	return &BufferedIterator[T]{
 		iter: i,
-		buffer: *MakeRingBuffer[T](capacity),
+		buffer: MakeRingBuffer[T](capacity),
 	}
 }
 
 type BufferedIterator[T any] struct {
 	iter Iterator[T]
-	buffer RingBuffer[T]
+	buffer Buffer[T]
 }
 
 func (i *BufferedIterator[T]) Clone() *BufferedIterator[T] {
 	if cloner, ok := i.iter.(Cloner[Iterator[T]]); ok {
 		return &BufferedIterator[T]{
 			iter: cloner.Clone(),
-			buffer: *i.buffer.Clone(),
+			buffer: i.buffer.Clone(),
 		}
 	}
 	panic("iterator doesn't implement Cloner interface")

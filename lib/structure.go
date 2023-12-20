@@ -23,17 +23,13 @@ type Id interface {
 	Id() int
 }
 
+type Container[T any] interface {
+	Contains(T) bool 
+}
+
 type Set[T Id] interface {
-	Contains(T) bool
+	Container[T]
 	Insert(T)
 	Remove(T)
-}
-
-type Tree[T Id] interface {
-	
-}
-
-type TreeNode[T any] interface {
-	Value() T
 }
 
